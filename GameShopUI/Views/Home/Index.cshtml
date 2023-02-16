@@ -1,47 +1,59 @@
-﻿@{
+﻿@model GameDisplayModel
+@{
     ViewData["Title"] = "Home Page";
     Layout = "_Layout";
 }
 
 <div class="my-2">
-        <form class="row row-cols-lg-auto g-3 align-items-center">
+        <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
 
 
   <div class="col-12">
-    <label class="visually-hidden" for="inlineFormSelectPref">Category</label>
-    <select class="form-select" id="categoryId">
-      <option selected>Choose...</option>
-      <option value="1">Chuj</option>
-      <option value="2">Dupa</option>
-      <option value="3">Cipa</option>
+    <label class="visually-hidden" for="genreId">Genre</label>
+    <select class="form-select" id="genreId" name="genreId">
+         <option value="0">All</option>
+                @foreach(var genre in Model.Genres)
+                {
+                        <option selected="@(Model.GenreId == @genre.Id)" value="@genre.Id">@genre.GenreName</option>
+                }
+              
     </select>
   </div>
 
     <div class="col-12">
-    <label class="visually-hidden" for="inlineFormInputGroupUsername">Search by title</label>
+    <label class="visually-hidden" for="sterm">Search by title</label>
     <div class="input-group">
       <div class="input-group-text"></div>
-      <input type="text" class="form-control" id="" placeholder="Search by title">
+      <input type="text" class="form-control" id="sterm" value="@Model.STerm" name="sterm" placeholder="Search by title">
     </div>
   </div>
 
   <div class="col-12">
     <button type="submit" class="btn btn-primary">Search</button>
+     <a href="/Home/Index" type="reset" class="btn btn-dark">Reset</a>
   </div>
 </form>
     </div>
 
 <div class="w-100 d-flex mt-4 flex-wrap">
-    @for (int i = 1; i <= 9; i++)
+    @foreach (var game in Model.Games)
     {
             <div class="card mx-2 mb-4" style="width: 16rem;">
-          @*<img src="https://picsum.photos/120/200" class="card-img-top" alt="...">*@
+            @if(string.IsNullOrEmpty(game.Image))
+            {
+                         <img src="/images/image.png" class="card-img-top" alt="...">
+            }
+            else
+            {
+                <img src="@game.Image" class="card-img-top" alt="...">
+         
+            }
+
       <div class="card-body">
-        <h5 class="card-title">Game title</h5>
-        <p class="card-text">
-        Author: 
-        Price: 
-            </p>
+        <h5 class="card-title">@game.GameName</h5>
+        <p class="card-text">  Genre:@game.GenreName  </p>
+         <p>Price: @game.Price</p>
+         <p> Author: @game.AuthorName</p>
         <a href="#" class="btn btn-primary">Add to cart</a>
       </div>
     </div>
