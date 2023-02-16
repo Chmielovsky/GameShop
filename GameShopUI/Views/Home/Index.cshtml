@@ -1,8 +1,65 @@
-﻿@{
+﻿@model GameDisplayModel
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "_Layout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="my-2">
+        <form asp-action="Index" class="row row-cols-lg-auto g-3 align-items-center">
+
+
+  <div class="col-12">
+    <label class="visually-hidden" for="genreId">Genre</label>
+    <select class="form-select" id="genreId" name="genreId">
+         <option value="0">All</option>
+                @foreach(var genre in Model.Genres)
+                {
+                        <option selected="@(Model.GenreId == @genre.Id)" value="@genre.Id">@genre.GenreName</option>
+                }
+              
+    </select>
+  </div>
+
+    <div class="col-12">
+    <label class="visually-hidden" for="sterm">Search by title</label>
+    <div class="input-group">
+      <div class="input-group-text"></div>
+      <input type="text" class="form-control" id="sterm" value="@Model.STerm" name="sterm" placeholder="Search by title">
+    </div>
+  </div>
+
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Search</button>
+     <a href="/Home/Index" type="reset" class="btn btn-dark">Reset</a>
+  </div>
+</form>
+    </div>
+
+<div class="w-100 d-flex mt-4 flex-wrap">
+    @foreach (var game in Model.Games)
+    {
+            <div class="card mx-2 mb-4" style="width: 16rem;">
+            @if(string.IsNullOrEmpty(game.Image))
+            {
+                         <img src="/images/image.png" class="card-img-top" alt="...">
+            }
+            else
+            {
+                <img src="@game.Image" class="card-img-top" alt="...">
+         
+            }
+
+      <div class="card-body">
+        <h5 class="card-title">@game.GameName</h5>
+        <p class="card-text">  Genre:@game.GenreName  </p>
+         <p>Price: @game.Price</p>
+         <p> Author: @game.AuthorName</p>
+        <a href="#" class="btn btn-primary">Add to cart</a>
+      </div>
+    </div>
+        
+    }
+
+
+
 </div>
