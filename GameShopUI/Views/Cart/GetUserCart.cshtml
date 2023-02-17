@@ -26,7 +26,7 @@
                     <td>
                         @if (!string.IsNullOrEmpty(item.Game.Image))
                         {
-                                        <img src="@item.Game.Image" style="width:80px; height:100px"/>
+                                        <img src="@item.Game.Image" style="width:105px; height:100px"/>
                         } else
                         {
                                <img src="/images/image.png" style="width:80px; height:100px" />   
@@ -44,7 +44,7 @@
         </table>
 
         <div class="my-2">
-            <h5>Totan: </h5>
+            <h5>Total: </h5>
             @(Model.CartDetails.Select(item=>item.Game.Price*item.Quantity).Sum())
         </div>
 
