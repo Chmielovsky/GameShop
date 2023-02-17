@@ -16,6 +16,8 @@ namespace GameShopUI.Models
         public int GameId { get; set; }
         [Required]  
         public int Quantity { get; set; }
+
+        public double UnitPrice { get; set; }
          public Game Game { get; set; } 
         public ShoppingCart ShoppingCart { get; set; }  
 

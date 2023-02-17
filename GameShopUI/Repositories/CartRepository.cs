@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -42,13 +43,13 @@ namespace GameShopUI.Repositories
                 }
                 else
                 {
-                    var book = _db.Games.Find(GameId);
+                    var game = _db.Games.Find(GameId);
                     cartItem = new CartDetail
                     {
                         GameId = GameId,
                         ShoppingCartId = cart.Id,
                         Quantity = qty,
-                        //UnitPrice = game.Price  // it is a new line after update
+                        UnitPrice = game.Price  // it is a new line after update
                     };
                     _db.CartDetails.Add(cartItem);
                 }
@@ -129,6 +130,65 @@ namespace GameShopUI.Repositories
                              ).ToListAsync();
             return data.Count;
         }
+
+        public async Task<bool> DoCheckout()
+        {
+            using var transaction = _db.Database.BeginTransaction();
+            try
+            {
+                var userId = GetUserId();
+                if (string.IsNullOrEmpty(userId)) 
+                {
+                    throw new Exception("User is not logged-in");
+                }
+                var cart = await GetCart(userId);
+                if (cart is null)
+                {
+                    throw new Exception("Invalid cart");
+                }
+                var cartDetail = _db.CartDetails.Where(a=>a.ShoppingCartId == cart.Id).ToList();
+                if (cartDetail.Count == 0)
+                {
+                    throw new Exception("Cart is empty");
+                }
+                var order = new Order
+                {
+                    UserId = userId,
+                    CreateDate = DateTime.UtcNow,
+                    OrderStatusId = 1,
+
+                };
+                _db.Orders.Add(order);
+                _db.SaveChanges();
+                foreach(var item in cartDetail)
+                {
+                    var orderDetail = new OrderDetail
+                    {
+                        GameId = item.GameId,
+                        OrderId = order.Id,
+                        Quantity = item.Quantity,
+                        UnitPrice = item.UnitPrice
+                    };
+                    _db.OrderDetails.Add(orderDetail);
+                }
+                _db.SaveChanges();
+
+                //removing thhe cart details
+
+                _db.CartDetails.RemoveRange(cartDetail);
+                _db.SaveChanges();
+                transaction.Commit();
+                return true;
+
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+            
+
+        }
+
         private string GetUserId()
         {
             var principal = _httpContextAccessor.HttpContext.User;

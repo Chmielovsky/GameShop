@@ -37,5 +37,15 @@ namespace GameShopUI.Controllers
             return Ok(cartItem);
         }
 
+        public async Task<IActionResult> Checkout()
+        {
+            bool isCheckedOut = await _cartRepo.DoCheckout();
+            if (!isCheckedOut)
+            {
+                throw new Exception("Something went wrong");
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
