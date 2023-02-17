@@ -45,16 +45,25 @@
             }
             else
             {
-                <img src="@game.Image" class="card-img-top" alt="...">
+                <img style="width:100%;height:210px" src="@game.Image" class="card-img-top" alt="...">
          
             }
 
       <div class="card-body">
         <h5 class="card-title">@game.GameName</h5>
-        <p class="card-text">  Genre:@game.GenreName  </p>
-         <p>Price: @game.Price</p>
-         <p> Author: @game.AuthorName</p>
-        <a href="#" class="btn btn-primary">Add to cart</a>
+        <p class="card-text">
+                    <b>Genre:</b>@game.GameName
+
+        </p>
+         <p>
+                    <b>Author:</b> @game.AuthorName
+         </p>
+                <p>
+                    <b>Price:</b> @game.Price
+                   
+                </p>
+         
+        <button type="button" onclick="add(@game.Id)" class="btn btn-primary">Add to cart</button>
       </div>
     </div>
         
@@ -63,3 +72,26 @@
 
 
 </div>
+
+        @section Scripts{
+    <script>
+        async function add(gameId) {
+            var usernameEl = document.getElementById("username");
+            if (usernameEl == null) {
+                window.location.href = "/Identity/Account/Login"
+            }
+            try {
+                var response = await fetch(`/Cart/AddItem?gameId=${gameId}`);
+                if (response.status == 200) {
+                    var result = await response.json();
+                    var cartCountEl = document.getElementById("cartCount");
+                    cartCountEl.innerHTML = result;
+                    window.location.href = "#cartCount";
+                }
+            }
+            catch (err) {
+                console.log(err);
+            }
+        }
+    </script>
+        }
