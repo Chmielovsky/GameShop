@@ -4,6 +4,7 @@ using GameShopUI.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using Microsoft.EntityFrameworkCore;
+using static System.Net.WebRequestMethods;
 
 namespace GameShopUI.Controllers
 {
@@ -91,6 +92,38 @@ namespace GameShopUI.Controllers
             _db.SaveChanges();
             return View();
             
+        }
+
+
+        [Route("/admin/panel/add-genre")]
+        public IActionResult AddGenre(Genre model)
+        {
+            try
+            {
+                _db.Genres.Add(model);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(AddGenre));       
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+
+        [Route("/admin/panel/add-game")]
+        public IActionResult AddGame(Game model)
+        {
+            try
+            {
+                _db.Games.Add(model);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
         }
 
 

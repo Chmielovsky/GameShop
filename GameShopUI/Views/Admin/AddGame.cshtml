@@ -1,0 +1,51 @@
+﻿@model Game
+@{
+}
+
+<form asp-action="AddGame" method="post">
+    <div class="mb-3">
+        <label asp-for="GameName">Game Name</label>
+        <input type="text"asp-for="GameName"  class="form-control"/>
+        <span asp-validation-for="GenreName" class="text-danger"></span>      
+    </div> 
+    
+    <div class="mb-3">
+        <label asp-for="GameName">Price</label>
+        <input type="number" asp-for="Price"  class="form-control"/>
+        <span asp-validation-for="Price" class="text-danger"></span>      
+    </div> 
+
+    <div class="mb-3">
+        <label asp-for="Image">Image URL</label>
+        <input type="text"asp-for="Image"  class="form-control"/>
+        <span asp-validation-for="Image" class="text-danger"></span>      
+    </div>
+
+    @*Walidacje trzeba zrobic chyba żeby określone ID z tabeli genre tylko wchodziły*@
+    <div class="mb-3">
+        <label asp-for="GenreId"> Genre ID</label>
+        <input type="text" asp-for="GenreId" class="form-control" />
+        <span asp-validation-for="GenreId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AuthorName"> Author name</label>
+        <input type="text" asp-for="AuthorName" class="form-control" />
+        <span asp-validation-for="AuthorName" class="text-danger"></span>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,25 @@
+﻿@model Genre
+@{
+    ViewData["Title"] = "Add new genre";
+    Layout = "_Layout";
+}
+
+<h3>Add Genre</h3>
+
+<form asp-action="AddGenre" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3">
+        <label asp-for="GenreName">Genre name</label>
+        
+        <input type="text"asp-for="GenreName"  class="form-control"/>
+        <span asp-validation-for="GenreName" class="text-danger"></span>      
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
