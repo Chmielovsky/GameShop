@@ -1,0 +1,28 @@
+﻿@model Game
+@{
+    ViewData["Title"] = "Edit product";
+    Layout = "_Layout";
+}
+
+<h1>@Model.GameName</h1>
+<form form asp-action="EditProduct">
+  <div class="mb-3">
+    <label for="name" class="form-label">Game name</label>
+    <input type="text" class="form-control" id="name" name="GameName" value="@Model.GameName">
+  </div>
+  <div class="mb-3">
+      <img src="@Model.Image" style="height:100px"/>
+    <label for="image" class="form-label">Image</label>
+    <input type="text" class="form-control" id="image" name="Image" value="@Model.Image">
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Price</label>
+    <input type="number" class="form-control" id="price" name="Price" value="@Model.Price">
+  </div>
+  <div class="mb-3">
+    <label for="price" class="form-label">Author name</label>
+    <input type="text" class="form-control" id="price" name="AuthorName" value="@Model.AuthorName">
+  </div>
+ 
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

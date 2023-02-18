@@ -3,6 +3,7 @@ using GameShopUI.Models.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
+
 namespace GameShopUI.Controllers
 {
     public class HomeController : Controller
@@ -18,6 +19,7 @@ namespace GameShopUI.Controllers
 
         public async Task<IActionResult> Index(string sterm="", int genreId = 0)
         {
+            
             IEnumerable<Game> games = await _homeRepository.GetGames(sterm, genreId);
             IEnumerable<Genre> genres = await _homeRepository.Genres();
             GameDisplayModel gameModel = new GameDisplayModel
