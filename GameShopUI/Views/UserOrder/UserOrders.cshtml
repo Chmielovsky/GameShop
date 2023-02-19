@@ -6,13 +6,13 @@
 
 <div style="width:100%; class="mt-2">
     <a href="/Identity/Account/Manage" class="btn btn-primary my-2">Back</a>
-    <h4>My Orders:</h4>
+    <h4>Moje zamówienia:</h4>
     @if (Model != null && Model.Count()>0)
     {
         <table class="table table-striped">
             <tr>
-                <th>OrderDate</th>
-                <th>OrderStatus</th>
+                <th>Data zamówienia</th>
+                <th>Status</th>
             </tr>
             @foreach (var order in Model)
             {
@@ -24,22 +24,14 @@
                 {
                     <tr>
                         <td>
-                            <table class="table table-striped">
+                                        <table class="table table-striped">
+                             
                                 <tr>
-                                    <td>
-                                        Total:
-                                    </td>
-                                    <td>
-                                        @(order.OrderDetail.Select(item => item.game.Price * item.Quantity).Sum())
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Game</th>
-                                    <th>Image</th>
-                                    <th>Genre</th>
-                                    <th>Unit Price(PLN)</th>
-                                    <th>Total Price</th>
+                                    <th>Gra</th>
+                                    <th>Zdjęcie</th>
+                                    <th>Gatunek</th>
+                                    <th>Cena (PLN)</th>
+                                    <th>Cena całkowita</th>
                                 </tr>
                                 @foreach (var item in order.OrderDetail)
                                 {
@@ -56,10 +48,24 @@
                                             }
                                         </td>
                                         <td>@item.game.Genre.GenreName</td>
-                                        <td>@item.game.Price X @item.Quantity</td>
-                                        <td> @(item.game.Price * item.Quantity) </td>
+                                                        <td>@item.game.Price X @item.Quantity</td>
+                                        <td> @(item.game.Price * item.Quantity) zł</td>
                                     </tr>
                                 }
+
+                                             <tr style="font-size: 17px; font-weight: bolder">
+                                                <td>
+                                                    Koszt: 
+                                                </td>
+                                               
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                        @(order.OrderDetail.Select(item => item.game.Price * item.Quantity).Sum()) zł
+
+                                                </td>
+                                            </tr>
                             </table>
                         </td>
                     </tr>

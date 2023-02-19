@@ -21,15 +21,15 @@
   </div>
 
     <div class="col-12">
-    <label class="visually-hidden" for="sterm">Search by title</label>
+    <label class="visually-hidden" for="sterm">Szukaj tytułu</label>
     <div class="input-group">
       <div class="input-group-text"></div>
-      <input type="text" class="form-control" id="sterm" value="@Model.STerm" name="sterm" placeholder="Search by title">
+      <input type="text" class="form-control" id="sterm" value="@Model.STerm" name="sterm" placeholder="Szukaj tytułu">
     </div>
   </div>
 
   <div class="col-12">
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Szukaj</button>
      <a href="/Home/Index" type="reset" class="btn btn-dark">Reset</a>
   </div>
 </form>
@@ -45,25 +45,25 @@
             }
             else
             {
-                <img style="width:100%;height:210px" src="@game.Image" class="card-img-top" alt="...">
+                <img style="width:100%;height:300px" src="@game.Image" class="card-img-top" alt="...">
          
             }
 
       <div class="card-body">
-        <h5 class="card-title">@game.GameName</h5>
+        <h5 class="card-title" style="text-align: center; font-weight: bolder">@game.GameName</h5>
         <p class="card-text">
-                    <b>Genre:</b>@game.GameName
+                    <b>Gatunek:</b>@game.GenreName
 
         </p>
          <p>
-                    <b>Author:</b> @game.AuthorName
+                    <b>Autor:</b> @game.AuthorName
          </p>
                 <p>
-                    <b>Price:</b> @game.Price
+                    <b>Cena:</b> @game.Price zł
                    
                 </p>
          
-        <button type="button" onclick="add(@game.Id)" class="btn btn-primary">Add to cart</button>
+                <button type="button" onclick="add(@game.Id)" class="btn btn-primary" style="background-color: #18bc9c!important; border: #18bc9c!important; width: 100%">Dodaj do koszyka</button>
       </div>
     </div>
         
