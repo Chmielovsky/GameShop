@@ -110,8 +110,8 @@ namespace GameShopUI.Controllers
             }
         }
 
-
         [Route("/admin/panel/add-game")]
+
         public IActionResult AddGame(Game model)
         {
             try
@@ -124,6 +124,7 @@ namespace GameShopUI.Controllers
             {
                 return View();
             }
+
         }
 
 
