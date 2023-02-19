@@ -1,0 +1,10 @@
+﻿@model IEnumerable<Order>
+@{
+    ViewData["Title"] = "Product List";
+    Layout = "_Layout";
+}
+
+@foreach (var item in Model )
+{
+    <p>@item.Id</p>
+}

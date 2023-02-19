@@ -127,5 +127,25 @@ namespace GameShopUI.Controllers
         }
 
 
+        
+        [Route("/admin/panel/order-list")]
+        public async Task<IActionResult> OrderList()
+        {
+
+            var data = await (from Order in _db.Orders
+                              join OrderDetail in _db.OrderDetails
+                              on Order.Id equals OrderDetail.OrderId
+                              select new {
+                                  Id = Order.Id,
+                                  Status = Order.OrderStatus,
+                                  Price = Order.OrderDetail.Sum(s=>s.UnitPrice*s.Quantity)
+                                  
+                              }
+                             ).ToListAsync();
+            
+
+            return View(data);
+        }
+
     }
 }
